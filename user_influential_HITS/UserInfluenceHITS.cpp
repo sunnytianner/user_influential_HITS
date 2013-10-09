@@ -15,25 +15,24 @@
 #include <iostream>
 #include <stdlib.h>
 #include <math.h>
+#include <algorithm>
+#include <functional>
 
 using namespace std;
 
-
-UserInfluenceHITS::UserInfluenceHITS(string file){
-    graphInputFileName = file;
+UserInfluenceHITS::UserInfluenceHITS(){
     authOutputFileName = "/Users/tian19880220/workspace/user_influential_HITS/result/auth_result";
     hubOutputFileName = "/Users/tian19880220/workspace/user_influential_HITS/result/hub_result";
+    authSortedOutputFileName = "/Users/tian19880220/workspace/user_influential_HITS/result/auth_result_sorted";
+    hubSortedOutputFileName = "/Users/tian19880220/workspace/user_influential_HITS/result/hub_result_sorted";
     hits = new map<string,TwitterHITS>;
     authGraph = new map<string,map<string,double> >;
     hubGraph = new map<string,map<string,double> >;
 }
 
-UserInfluenceHITS::UserInfluenceHITS(){
-    authOutputFileName = "/Users/tian19880220/workspace/user_influential_HITS/result/auth_result";
-    hubOutputFileName = "/Users/tian19880220/workspace/user_influential_HITS/result/hub_result";
-    hits = new map<string,TwitterHITS>;
-    authGraph = new map<string,map<string,double> >;
-    hubGraph = new map<string,map<string,double> >;
+UserInfluenceHITS::UserInfluenceHITS(string file){
+    graphInputFileName = file;
+    UserInfluenceHITS();
 }
 
 UserInfluenceHITS::~UserInfluenceHITS(){
@@ -80,11 +79,11 @@ void UserInfluenceHITS::initGraphBoolean(string file){
             
             //init hits with auth=1.0 hubs=1.0
             if (hits->find(source) == hits->end()) {
-                TwitterHITS object = {1.0,1.0};
+                TwitterHITS object = {source,1.0,1.0};
                 hits->insert(make_pair(source, object));
             }
             if (hits->find(target) == hits->end()) {
-                TwitterHITS object = {1.0,1.0};
+                TwitterHITS object = {target,1.0,1.0};
                 hits->insert(make_pair(target, object));
             }
             
@@ -149,11 +148,11 @@ void UserInfluenceHITS::initGraphCount(string file){
             
             //init hits with auth=1.0 hubs=1.0
             if (hits->find(source) == hits->end()) {
-                TwitterHITS object = {1.0,1.0};
+                TwitterHITS object = {source,1.0,1.0};
                 hits->insert(make_pair(source, object));
             }
             if (hits->find(target) == hits->end()) {
-                TwitterHITS object = {1.0,1.0};
+                TwitterHITS object = {target,1.0,1.0};
                 hits->insert(make_pair(target, object));
             }
             
@@ -265,4 +264,29 @@ void UserInfluenceHITS::resultOutPut(){
     authOutputFile.close();
     hubOutputFile.close();
     
+}
+
+void UserInfluenceHITS::resultSortedOutput(){
+    cout << "start writing the sorted result files..." << endl;
+    ofstream authSortedOutputFile,hubSortedOutputFile;
+    authSortedOutputFile.open(authSortedOutputFileName.c_str());
+    hubSortedOutputFile.open(hubSortedOutputFileName.c_str());
+    
+    vector<TwitterHITS> hitsVect;
+    map<string,TwitterHITS>::iterator iter;
+    for (iter = hits->begin(); iter!=hits->end(); iter++) {
+        hitsVect.push_back(iter->second);
+    }
+    
+    sort(hitsVect.begin(),hitsVect.end(),biggerAuth);
+    for (int i=0; i<hitsVect.size(); i++) {
+        authSortedOutputFile << hitsVect[i].name << "\t" << hitsVect[i].auth << endl;
+    }
+    authSortedOutputFile.close();
+    
+    sort(hitsVect.begin(),hitsVect.end(),biggerHub);
+    for (int i=0; i<hitsVect.size(); i++) {
+        hubSortedOutputFile << hitsVect[i].name << "\t" << hitsVect[i].hub << endl;
+    }
+    hubSortedOutputFile.close();
 }

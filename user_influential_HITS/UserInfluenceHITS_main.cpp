@@ -14,6 +14,6 @@ int main(int argc, const char * argv[])
     UserInfluenceHITS *hits = new UserInfluenceHITS();
     hits->initGraphLog("/Users/tian19880220/workspace/user_influential_HITS/data/data_format.txt");
     hits->HITS(50);
-    hits->resultOutPut();
+    hits->resultSortedOutput();
 }
 

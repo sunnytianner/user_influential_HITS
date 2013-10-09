@@ -15,6 +15,7 @@
 using namespace std;
 
 struct TwitterHITS{
+    string name;
     double auth;
     double hub;
 };
@@ -27,6 +28,8 @@ private:
     string graphInputFileName;  //the source file name of the graph
     string authOutputFileName;  //the file name put the auth values:userName\tauthValue
     string hubOutputFileName;   //the file name put the auth values:userName\thubValue
+    string authSortedOutputFileName;  //the sorted file name put the auth values:userName\tauthValue
+    string hubSortedOutputFileName;   //the sorted file name put the auth values:userName\thubValue
 public:
     UserInfluenceHITS(string file);
     UserInfluenceHITS();
@@ -38,6 +41,9 @@ public:
     void initGraphLog(string file);         //the side value is the log(count)
     void HITS(int step);                            //the HITS algorithm
     void resultOutPut();                    //putput the HITS result
+    static bool biggerAuth(const TwitterHITS & t1, const TwitterHITS & t2){return t1.auth > t2.auth;}
+    static bool biggerHub(const TwitterHITS & t1, const TwitterHITS & t2){return t1.hub > t2.hub;}
+    void resultSortedOutput();
 };
 
 #endif
