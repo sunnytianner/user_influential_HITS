@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5297364B1803943300A1447F /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5297364A1803943300A1447F /* main.cpp */; };
+		5297364B1803943300A1447F /* UserInfluenceHITS_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5297364A1803943300A1447F /* UserInfluenceHITS_main.cpp */; };
 		5297364D1803943300A1447F /* user_influential_HITS.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5297364C1803943300A1447F /* user_influential_HITS.1 */; };
+		529736561803963400A1447F /* util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 529736551803963400A1447F /* util.cpp */; };
+		529736591803968900A1447F /* UserInfluenceHITS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 529736581803968900A1447F /* UserInfluenceHITS.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,8 +28,13 @@
 
 /* Begin PBXFileReference section */
 		529736461803943300A1447F /* user_influential_HITS */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = user_influential_HITS; sourceTree = BUILT_PRODUCTS_DIR; };
-		5297364A1803943300A1447F /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		5297364A1803943300A1447F /* UserInfluenceHITS_main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UserInfluenceHITS_main.cpp; sourceTree = "<group>"; };
 		5297364C1803943300A1447F /* user_influential_HITS.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = user_influential_HITS.1; sourceTree = "<group>"; };
+		529736531803961E00A1447F /* constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
+		529736541803961E00A1447F /* util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = util.h; sourceTree = "<group>"; };
+		529736551803963400A1447F /* util.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = util.cpp; sourceTree = "<group>"; };
+		529736571803967300A1447F /* UserInfluenceHITS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfluenceHITS.h; sourceTree = "<group>"; };
+		529736581803968900A1447F /* UserInfluenceHITS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UserInfluenceHITS.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,8 +67,13 @@
 		529736491803943300A1447F /* user_influential_HITS */ = {
 			isa = PBXGroup;
 			children = (
-				5297364A1803943300A1447F /* main.cpp */,
+				529736551803963400A1447F /* util.cpp */,
+				529736531803961E00A1447F /* constants.h */,
+				529736541803961E00A1447F /* util.h */,
+				5297364A1803943300A1447F /* UserInfluenceHITS_main.cpp */,
 				5297364C1803943300A1447F /* user_influential_HITS.1 */,
+				529736571803967300A1447F /* UserInfluenceHITS.h */,
+				529736581803968900A1447F /* UserInfluenceHITS.cpp */,
 			);
 			path = user_influential_HITS;
 			sourceTree = "<group>";
@@ -117,7 +129,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5297364B1803943300A1447F /* main.cpp in Sources */,
+				5297364B1803943300A1447F /* UserInfluenceHITS_main.cpp in Sources */,
+				529736561803963400A1447F /* util.cpp in Sources */,
+				529736591803968900A1447F /* UserInfluenceHITS.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

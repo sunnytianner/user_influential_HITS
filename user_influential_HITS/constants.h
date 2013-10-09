@@ -1,0 +1,5 @@
+#define CONTROL_A "\x01"
+#define SPACE " "
+#define TAB "\t"
+#define COMMA ","
+#define SIMICOLON ":"
