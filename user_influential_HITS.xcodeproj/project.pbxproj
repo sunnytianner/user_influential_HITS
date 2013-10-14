@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		52329732180B842600608170 /* UserInfluenceHITSImprove.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52329730180B842600608170 /* UserInfluenceHITSImprove.cpp */; };
 		5297364B1803943300A1447F /* UserInfluenceHITS_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5297364A1803943300A1447F /* UserInfluenceHITS_main.cpp */; };
 		5297364D1803943300A1447F /* user_influential_HITS.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5297364C1803943300A1447F /* user_influential_HITS.1 */; };
 		529736561803963400A1447F /* util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 529736551803963400A1447F /* util.cpp */; };
@@ -27,6 +28,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		52329730180B842600608170 /* UserInfluenceHITSImprove.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UserInfluenceHITSImprove.cpp; sourceTree = "<group>"; };
+		52329731180B842600608170 /* UserInfluenceHITSImprove.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfluenceHITSImprove.h; sourceTree = "<group>"; };
 		529736461803943300A1447F /* user_influential_HITS */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = user_influential_HITS; sourceTree = BUILT_PRODUCTS_DIR; };
 		5297364A1803943300A1447F /* UserInfluenceHITS_main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UserInfluenceHITS_main.cpp; sourceTree = "<group>"; };
 		5297364C1803943300A1447F /* user_influential_HITS.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = user_influential_HITS.1; sourceTree = "<group>"; };
@@ -74,6 +77,8 @@
 				5297364C1803943300A1447F /* user_influential_HITS.1 */,
 				529736571803967300A1447F /* UserInfluenceHITS.h */,
 				529736581803968900A1447F /* UserInfluenceHITS.cpp */,
+				52329730180B842600608170 /* UserInfluenceHITSImprove.cpp */,
+				52329731180B842600608170 /* UserInfluenceHITSImprove.h */,
 			);
 			path = user_influential_HITS;
 			sourceTree = "<group>";
@@ -132,6 +137,7 @@
 				5297364B1803943300A1447F /* UserInfluenceHITS_main.cpp in Sources */,
 				529736561803963400A1447F /* util.cpp in Sources */,
 				529736591803968900A1447F /* UserInfluenceHITS.cpp in Sources */,
+				52329732180B842600608170 /* UserInfluenceHITSImprove.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,6 +230,7 @@
 				529736521803943300A1447F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

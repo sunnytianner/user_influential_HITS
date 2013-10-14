@@ -7,11 +7,11 @@
 //
 
 #include <iostream>
-#include "UserInfluenceHITS.h"
+#include "UserInfluenceHITSImprove.h"
 
 int main(int argc, const char * argv[])
 {
-    UserInfluenceHITS *hits = new UserInfluenceHITS();
+    UserInfluenceHITSImprove *hits = new UserInfluenceHITSImprove();
     hits->initGraphLog("/Users/tian19880220/workspace/user_influential_HITS/data/data_format.txt");
     hits->HITS(50);
     hits->resultSortedOutput();
