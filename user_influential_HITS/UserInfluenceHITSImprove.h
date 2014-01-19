@@ -30,6 +30,7 @@ private:
     string hubOutputFileName;   //the file name put the auth values:userName\thubValue
     string authSortedOutputFileName;  //the sorted file name put the auth values:userName\tauthValue
     string hubSortedOutputFileName;   //the sorted file name put the auth values:userName\thubValue
+    double endPointCount;       //记录虚拟终止节点的个数
 public:
     UserInfluenceHITSImprove(string file);
     UserInfluenceHITSImprove();

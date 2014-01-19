@@ -28,6 +28,7 @@ UserInfluenceHITSImprove::UserInfluenceHITSImprove(){
     hits = new map<string,TwitterHITS>;
     authGraph = new map<string,map<string,double> >;
     hubGraph = new map<string,map<string,double> >;
+    endPointCount = 0.0;
 }
 
 UserInfluenceHITSImprove::UserInfluenceHITSImprove(string file){
@@ -52,10 +53,12 @@ void UserInfluenceHITSImprove::initGraphBoolean(string file){
     graphInputFileName = file;
     ifstream inputFile;
     inputFile.open(graphInputFileName.c_str());
+    string line;
     
-    while (!inputFile.eof()) {
-        string line;
-        getline(inputFile,line);
+//    while (!inputFile.eof()) {
+    while (inputFile >> line) {
+//        string line;
+//        getline(inputFile,line);
         if (line.size() == 0) {
             continue;
         }
@@ -76,15 +79,20 @@ void UserInfluenceHITSImprove::initGraphBoolean(string file){
             }
             string source = points[1];  //the person who is the source of the information
             string target = points[0];  //the person who refer to the source for the information
-            
+            if ("NullPoniterToThisPoint"==target) {
+                endPointCount += 1;
+                continue;
+            }
             //init hits with auth=1.0 hubs=1.0
             if (hits->find(source) == hits->end()) {
                 TwitterHITS object = {source,1.0,1.0};
                 hits->insert(make_pair(source, object));
             }
             if (hits->find(target) == hits->end()) {
-                TwitterHITS object = {target,1.0,1.0};
-                hits->insert(make_pair(target, object));
+                if ("NullPoniterToThisPoint"!=target) {
+                    TwitterHITS object = {target,1.0,1.0};
+                    hits->insert(make_pair(target, object));
+                }
             }
             
             //init authGraph
@@ -145,15 +153,20 @@ void UserInfluenceHITSImprove::initGraphCount(string file){
             }
             string source = points[1];  //the person who is the source of the information
             string target = points[0];  //the person who refer to the source for the information
-            
+            if ("NullPoniterToThisPoint"==target) {
+                endPointCount += 1;
+                continue;
+            }
             //init hits with auth=1.0 hubs=1.0
             if (hits->find(source) == hits->end()) {
                 TwitterHITS object = {source,1.0,1.0};
                 hits->insert(make_pair(source, object));
             }
             if (hits->find(target) == hits->end()) {
-                TwitterHITS object = {target,1.0,1.0};
-                hits->insert(make_pair(target, object));
+                if ("NullPoniterToThisPoint"==target) {
+                    TwitterHITS object = {target,1.0,1.0};
+                    hits->insert(make_pair(target, object));
+                }
             }
             
             //init authGraph
@@ -215,9 +228,12 @@ void UserInfluenceHITSImprove::initGraphLog(string file){
 void UserInfluenceHITSImprove::HITS(int step){
     cout << "Start HITS algorithm..." << endl;
     double norm;
+//    double auth_value,hub_value;
+    double p_control = 0,c_control = 0;
     for (int i = 0; i<step; i++) {
+        c_control = 0;
         cout << "Step " << i+1 << "..." << endl;
-        norm = 0;
+        //norm = 0;
         map<string,TwitterHITS>::iterator iter;
         
         //auth
@@ -225,6 +241,9 @@ void UserInfluenceHITSImprove::HITS(int step){
             iter->second.auth=0;
             map<string,double> target = (*authGraph)[iter->first];
             for (map<string,double>::iterator it = target.begin(); it != target.end(); it++) {
+                if ("NullPoniterToThisPoint"==it->first) {
+                    continue;
+                }
                 iter->second.auth += ((*hits)[it->first].hub) * (it->second);
             }
             norm += (iter->second.auth) * (iter->second.auth);
@@ -232,24 +251,43 @@ void UserInfluenceHITSImprove::HITS(int step){
         norm = sqrt(norm);
         for (iter = hits->begin(); iter != hits->end(); iter++) {
             iter->second.auth = iter->second.auth / norm;
+            c_control += iter->second.auth;
         }
         
         //hub
         for (iter = hits->begin(); iter != hits->end(); iter++) {
             iter->second.hub=0;
+//            auth_value = hub_value = 0.0;
             map<string,double> source = (*hubGraph)[iter->first];
             for (map<string,double>::iterator it = source.begin(); it != source.end(); it++) {
                 iter->second.hub += ((*hits)[it->first].auth) * (it->second);
+//                auth_value = ((*hits)[it->first].auth) * (it->second);
             }
             map<string,double> target = (*authGraph)[iter->first];
             for (map<string,double>::iterator it = target.begin(); it != target.end(); it++) {
-                iter->second.hub += ((*hits)[it->first].auth) * (it->second);
+                if ("NullPoniterToThisPoint"==it->first) {
+                    iter->second.hub -= (1.0/endPointCount) * (it->second);
+                }
+                else{
+                    iter->second.hub += ((*hits)[it->first].auth) * (it->second);
+                }
+//                hub_value = ((*hits)[it->first].auth) * (it->second);
             }
+//            iter->second.hub = (1/(1+exp(0-auth_value))) + (1/(1+exp(0-hub_value)));
+//            c_control += iter->second.hub;
             norm += (iter->second.hub) * (iter->second.hub);
         }
+        
         norm = sqrt(norm);
         for (iter = hits->begin(); iter != hits->end(); iter++) {
             iter->second.hub = iter->second.hub / norm;
+            c_control += iter->second.hub;
+        }
+        if (c_control == p_control) {
+            break;
+        }
+        else{
+            p_control = c_control;
         }
     }
 }
